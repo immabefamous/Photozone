@@ -12,7 +12,7 @@ require 'net/http'
 puts "creating users"
 User.create(name: "Emmanuel", username: "unique1", password: "pass1", image: "https://i.ytimg.com/vi/_fLy6fGw0Z4/maxresdefault.jpg", subscription: true)
 y = 2
-while y <= 50
+while y <= 20
     puts "generating user#{y}"
     User.create(name: "placeholder", username: "unique#{y}", password: "pass#{y}", image: "https://ohmylens.com/wp-content/uploads/2017/06/dummy-profile-pic.png", subscription: false)
     y += 1
@@ -29,10 +29,10 @@ photoZoneData = JSON.parse(response.body)
 
 photoZoneData.each {|x| PicPost.create(
     title: x["description"],
-     image: x["urls"]["regular"],
+     image: x["urls"]["small"],
       likes: x["likes"],
-       dislikes: rand(50),
-        user_id: rand(50) )
+       dislikes: rand(20),
+        user_id: rand(20) )
         puts "created a random post"
     }
 b += 1
@@ -40,36 +40,46 @@ end
 puts "creating forum threads"
 Forum.create(title: "Gear",
 image:  "https://images.squarespace-cdn.com/content/v1/54f89a5be4b08c1630c14c74/1553462908280-V35YU8T9SP4DNWCGDD0K/DSJ_7834lrg.jpg?format=1000w",
-likes: rand(50),
-dislikes: rand(50),
-user_id: rand(50)
+likes: rand(20),
+dislikes: rand(20),
+user_id: rand(20)
 )
 
 Forum.create(title: "Clients",
 image:  "https://www.cgi.com/sites/default/files/consultants-client-talking-at-table-voc-medium.jpg",
-likes: rand(50),
-dislikes: rand(50),
-user_id: rand(50)
+likes: rand(20),
+dislikes: rand(20),
+user_id: rand(20)
 )
 
 Forum.create(title: "Skill vs experience",
 image:  "http://storage.ning.com/topology/rest/1.0/file/get/1557602463?profile=RESIZE_320x320",
-likes: rand(50),
-dislikes: rand(50),
-user_id: rand(50)
+likes: rand(20),
+dislikes: rand(20),
+user_id: rand(20)
 )
 
 puts "creating forum post for each thread"
 z = 1
 while z <= 10
-ForumPost.create(textarea: "place holder", image: "https://ohmylens.com/wp-content/uploads/2017/06/dummy-profile-pic.png", user_id: rand(50), forum_id:rand(3))
+ForumPost.create(
+textarea: "place holder",
+image: "https://ohmylens.com/wp-content/uploads/2017/06/dummy-profile-pic.png",
+user_id: rand(20),
+forum_id:rand(3),
+dislikes: rand(20),
+user_id: rand(20))
 z += 1
 end
 
 puts "greating comments for the posts"
 a = 1
-while a <= 25
-Comment.create(comment: "this is a nice picture", user_id: rand(50), pic_post_id: rand(30))
+while a <= 5
+Comment.create(comment: "this is a nice picture", user_id: rand(20), pic_post_id: rand(30))
+Comment.create(comment: "great shot", user_id: rand(20), pic_post_id: rand(30))
+Comment.create(comment: "this speaks to me", user_id: rand(20), pic_post_id: rand(30))
+Comment.create(comment: "this shot is mid", user_id: rand(20), pic_post_id: rand(30))
+Comment.create(comment: "nice edit", user_id: rand(20), pic_post_id: rand(30))
 a += 1
 end
 

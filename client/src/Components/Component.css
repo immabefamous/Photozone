@@ -2,11 +2,13 @@
     margin: 0 auto;
     overflow: hidden;
     max-width: 500px;
+    left: -10%;
   }
   
   .slideshowSlider {
     white-space: nowrap;
     transition: ease 1000ms;
+    left: -10%;
   }
   
   .slide {
@@ -34,3 +36,43 @@
   .slideshowDot.active {
     background-color: #6a0dad;
   }
+
+  .text {
+    text-align: center;
+  }
+
+  .photofeedpics {
+    width: 500px;
+    height: 500px;
+    border: 5px solid black;
+    padding: 50px;
+    margin: 20px;
+  }
+
+  .photofeedpics h3 {
+    text-align: left;
+  }
+
+  #container {
+    border: 1px solid black;
+    padding: 15px;
+ }
+ 
+ #top-section {
+   border-bottom: 1px solid red;
+ }
+ 
+ #expand-container {
+   overflow: hidden;
+ }
+ 
+ #expand-contract {
+   border-bottom: 1px solid red;
+   margin-top: -100%;
+   transition: all 1s;
+ }
+ 
+ #expand-contract.expanded {
+    background-color: green;
+    margin-top: 0;
+ }

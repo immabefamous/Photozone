@@ -7,28 +7,28 @@ const [picInfo, setPicInfo] = useState([])
 const [index, setIndex] = useState(0);
 const delay = 2500;
 const timeoutRef = useRef(null);
-console.log(picInfo)
 function resetTimeout() {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
 }
-async function slideShowPics() {
-   let  req = await fetch('https://api.unsplash.com/photos/?client_id=3MyT9v7J2-oO2smMU-C0xhMV_E-Gc2SX_2CfHx64D0E')
-   let  res = await req.json();
-   console.log(res)
-    setPicInfo(res)
-}
+const dummyArray = ["a",'b','c','d','e','f','g','h','i','j','k']
+// async function slideShowPics() {
+//    let  req = await fetch('https://api.unsplash.com/photos/?client_id=3MyT9v7J2-oO2smMU-C0xhMV_E-Gc2SX_2CfHx64D0E')
+//    let  res = await req.json();
+//    console.log(res)
+//     setPicInfo(res)
+// }
 
-useEffect(()=> {
-    slideShowPics();
-},[])
+// useEffect(()=> {
+//     slideShowPics();
+// },[])
 
 useEffect(() => {
     timeoutRef.current = setTimeout(
       () =>
         setIndex((prevIndex) =>
-          prevIndex === picInfo.length - 1 ? 0 : prevIndex + 1
+          prevIndex === dummyArray.length - 1 ? 0 : prevIndex + 1
         ),
       delay
     );
@@ -42,11 +42,11 @@ return (
         style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}>
 
 {/*Loop through PicInfo to have the pictures for the slide show Full-width images with number and caption text*/}
-    {picInfo.map((element, index)=> {
+    {dummyArray.map((element, index)=> {
     return(
         <div className="slide" key={index}>
-        <img src={element.urls.small}></img>
-        <div className="text">{element.description}
+        <img src="https://previews.123rf.com/images/fordzolo/fordzolo1506/fordzolo150600296/41026708-example-white-stamp-text-on-red-backgroud.jpg" alt="tester" witdth= "500" height="250"></img>
+        <div className="text">"Dessert in Dubai"
         </div>
         </div> 
     )
@@ -54,7 +54,7 @@ return (
 {/* end of loop */}
 </div>
 <div className="slideshowDots">
-        {picInfo.map((_, idx) => (
+        {dummyArray.map((_, idx) => (
           <div key={idx} 
           className={`slideshowDot${index === idx ? "active" : ""}`}
           onClick={() => {
@@ -63,8 +63,21 @@ return (
           ></div>
         ))}
       </div>
-</div>   
 </div>
+
+<div className="3_image_box">
+
+</div>
+<div className="textbox_for_3_image_box">
+
+</div>
+<div className="imagebox">
+</div>
+<div className="text_for_imagebox">
+
+</div>
+</div>
+
     )
 
 }
