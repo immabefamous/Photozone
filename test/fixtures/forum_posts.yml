@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  textarea: MyText
+  image: MyString
+  user.id: 1
+  forum.id: 1
+
+two:
+  textarea: MyText
+  image: MyString
+  user.id: 1
+  forum.id: 1
