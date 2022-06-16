@@ -1,12 +1,77 @@
-import React from "react";
+import React, { useEffect, useState } from "react"
+import ForumPost from "./ForumPost"
+import { Link } from "react-router-dom"
 
-function Forum() {
+const Forum = () => {
+    const [allForums, setAllForums] = useState([])
+    const [isVis, setIsVis] = useState(true)
+
+    const loadForums = async () => {
+        let req = await fetch("http://127.0.0.1:3000/forums")
+        let res = await req.json()
+        setAllForums(res)
+    }
+    console.log(allForums)
+    const loadChosenForum = () => {
+        setIsVis(false)
+
+    }
+
+    useEffect(() => { loadForums() }, [])
+
     return (
-        <div className ='app-container'>
-            <h1>PhotoZone Forum</h1>
+        <div>
+            <Link to="/">
+                <button className='back-btn'>Back to Home Page</button>
+            </Link>
+            <div id="welcome_box" style={{ display: isVis ? "inherit" : "none" }} >
+                <h1>Welcome to Photozone Forums</h1>
+                {/* load forums  */}
+                
+                {allForums.map((element, index) => {
+                    return (
+                        <div className={`forum-container${index}`} key={index}>
+                            <div className="forumlinkbox" onClick={{ loadChosenForum }}>
+                                <h2>{element.title}</h2>
+                                <img src="{element.image}"></img>
+                                <img id="like" src="https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg" height="22px" width="22px"></img>
+                                <h4>{element.likes}</h4>
+                                <img id="dislike" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Broken_heart.svg/1250px-Broken_heart.svg.png" height="17px" width="17px"></img>
+                                <h4>{element.dislikes}</h4>
+                                <h2> Creator: {element.user.name}</h2>
+                                <img src={element.user.image} alt="user image"></img>
+                            </div>
+                            <div id="forum_page" style={{ display: !isVis ? "inherit" : "none" }}>
+                            <Link to="/forums">
+                            <button className='back-btn'>Back to Forums</button>
+                            </Link>
+                            <div id="forum-header">
+                                <h1>{element.title}</h1>
+                            </div>
+                            {element.forum_posts.map((element) => {
+                                return (
+                                    <div>
+                                        <h3>element.user.username</h3>
+                                        <img src={element.user.image}></img>
+                                        <h2>{element.textarea}</h2>
+                                        <img src={element.img} alt="no image loaded"></img>
+                                    </div>
+                                )
+                                
+                            })}
+                            </div>
+                        </div>
+                    )
+                })}
+
+
+            </div>
         </div>
-        
-    );
+    )
+
+
 }
+
+
 
 export default Forum;

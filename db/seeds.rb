@@ -67,6 +67,7 @@ textarea: "place holder",
 image: "https://ohmylens.com/wp-content/uploads/2017/06/dummy-profile-pic.png",
 user_id: rand(20),
 forum_id:rand(3),
+likes: rand(20),
 dislikes: rand(20),
 user_id: rand(20))
 z += 1
@@ -75,11 +76,11 @@ end
 puts "greating comments for the posts"
 a = 1
 while a <= 5
-Comment.create(comment: "this is a nice picture", user_id: rand(20), pic_post_id: rand(30))
-Comment.create(comment: "great shot", user_id: rand(20), pic_post_id: rand(30))
-Comment.create(comment: "this speaks to me", user_id: rand(20), pic_post_id: rand(30))
-Comment.create(comment: "this shot is mid", user_id: rand(20), pic_post_id: rand(30))
-Comment.create(comment: "nice edit", user_id: rand(20), pic_post_id: rand(30))
+Comment.create(comment: "this is a nice picture", user_id: rand(20), pic_post_id: rand(30), likes: rand(20), dislikes: rand(20))
+Comment.create(comment: "great shot", user_id: rand(20), pic_post_id: rand(30), likes: rand(20), dislikes: rand(20))
+Comment.create(comment: "this speaks to me", user_id: rand(20), pic_post_id: rand(30), likes: rand(20), dislikes: rand(20))
+Comment.create(comment: "this shot is mid", user_id: rand(20), pic_post_id: rand(30), likes: rand(20), dislikes: rand(20))
+Comment.create(comment: "nice edit", user_id: rand(20), pic_post_id: rand(30), likes: rand(20), dislikes: rand(20))
 a += 1
 end
 

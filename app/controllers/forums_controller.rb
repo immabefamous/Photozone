@@ -6,7 +6,7 @@ class ForumsController < ApplicationController
     end
 
     def show
-        forums = Forum.find_by(username: params[:username])
+        forums = Forum.find(params[:id])
         if forums 
             render json: forums, status: 200
         else 

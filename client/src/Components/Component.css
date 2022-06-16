@@ -43,10 +43,13 @@
 
   .photofeedpics {
     width: 500px;
-    height: 500px;
+    height: 600px;
     border: 5px solid black;
     padding: 50px;
-    margin: 20px;
+    margin: auto;
+    /* display: inline-block;
+    display: flex;
+    flex-direction: column; */
   }
 
   .photofeedpics h3 {
@@ -68,11 +71,22 @@
  
  #expand-contract {
    border-bottom: 1px solid red;
-   margin-top: -100%;
+  
    transition: all 1s;
  }
  
- #expand-contract.expanded {
-    background-color: green;
-    margin-top: 0;
- }
+.comments {
+  display:flex;
+  
+}
+
+.ciContainer {
+  display: flex;
+  flex-direction: row;
+}
+.ciContainer img {
+  padding-top: 12.5px;
+}
+.ciContainer div {
+  margin: 0%;
+}
