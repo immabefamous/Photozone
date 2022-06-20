@@ -71,7 +71,7 @@
  
  #expand-contract {
    border-bottom: 1px solid red;
-  
+  cursor: pointer;
    transition: all 1s;
  }
  
@@ -83,10 +83,43 @@
 .ciContainer {
   display: flex;
   flex-direction: row;
+  height: 0px;
 }
 .ciContainer img {
   padding-top: 12.5px;
 }
 .ciContainer div {
   margin: 0%;
+}
+
+.grid-for-items {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #2196F3;
+  padding: 10px;
+}
+
+.grid-for-items div {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.forumlinkbox {
+  width: 500px;
+  height: 300px;
+  border: 5px solid black;
+  padding: 50px;
+  margin: auto;
+}
+
+#forum_page {
+  width: 500px;
+  height: 1000px;
+  overflow: auto;
+  border: 5px solid black;
+  padding: 50px;
+  margin: auto;
 }

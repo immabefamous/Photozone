@@ -5,7 +5,7 @@ class PicPostsController < ApplicationController
     end
 
     def show
-        pic_post = PicPost.find_by(username: params[:username])
+        pic_post = PicPost.find_by(id: params[:id])
         if pic_post 
             render json: pic_post, status: 200
         else 
@@ -14,9 +14,9 @@ class PicPostsController < ApplicationController
     end
 
     def update 
-        pic_post = PicPost.find_by(title: params[:title])
+        pic_post = PicPost.find_by(id: params[:id])
         if pic_post 
-            pic_post.update(picPost_params_permit)
+            pic_post.update(likes: (postPic_params.permit))
         render json: pic_post, status: 201
         else
             render json: {error: "Not successful"}, status: 422
@@ -24,7 +24,7 @@ class PicPostsController < ApplicationController
     end
     
     def create 
-        newPicPost = PicPost.create(params.permit) 
+        newPicPost = PicPost.create(postPic_params.permit) 
         if newPicPost.valid?
             render json: newPicPost, status:201 
         else
@@ -35,7 +35,7 @@ class PicPostsController < ApplicationController
     private
 
     def postPic_params_permit 
-        params.permit(:title, :image)
+        params.permit(:title, :image, :likes, :dislikes)
     end
 
 

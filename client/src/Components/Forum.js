@@ -12,10 +12,12 @@ const Forum = () => {
         setAllForums(res)
     }
     console.log(allForums)
-    const loadChosenForum = () => {
-        setIsVis(false)
 
-    }
+    
+    // const loadChosenForum = () => {
+    //     setIsVis(false)
+
+    // }
 
     useEffect(() => { loadForums() }, [])
 
@@ -24,14 +26,14 @@ const Forum = () => {
             <Link to="/">
                 <button className='back-btn'>Back to Home Page</button>
             </Link>
-            <div id="welcome_box" style={{ display: isVis ? "inherit" : "none" }} >
+            <div id="welcome_box"  >
                 <h1>Welcome to Photozone Forums</h1>
                 {/* load forums  */}
                 
                 {allForums.map((element, index) => {
                     return (
-                        <div className={`forum-container${index}`} key={index}>
-                            <div className="forumlinkbox" onClick={{ loadChosenForum }}>
+                        <div className={`forum-container${index}`} key={index} >
+                            <div className="forumlinkbox" onClick={() => setIsVis(false) } style={{ display: isVis ? "inherit" : "none" }}>
                                 <h2>{element.title}</h2>
                                 <img src="{element.image}"></img>
                                 <img id="like" src="https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg" height="22px" width="22px"></img>
@@ -52,9 +54,9 @@ const Forum = () => {
                                 return (
                                     <div>
                                         <h3>element.user.username</h3>
-                                        <img src={element.user.image}></img>
+                                        <img src={element.user.image} width="75" height="75" ></img>
                                         <h2>{element.textarea}</h2>
-                                        <img src={element.img} alt="no image loaded"></img>
+                                        <img src={element.img} alt="no image loaded" width="200" height="200" ></img>
                                     </div>
                                 )
                                 

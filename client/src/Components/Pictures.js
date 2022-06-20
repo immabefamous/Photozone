@@ -7,6 +7,7 @@ import {useState} from 'react'
 function Pictures() {
     const [allPhotos, getAllPhotos] = useState([])
     const [isVis, setIsVis] = useState(false)
+    
     async function getPhotos() {
         let req = await fetch("http://127.0.0.1:3000/pic_posts")
         let res = await req.json()
@@ -16,9 +17,31 @@ function Pictures() {
         
         setIsVis(prevState => !prevState)
     }
-    
-    const dummyArray = ["a", 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k']
 
+    async function updateLikes(likeDisLikeData) {
+        console.log(likeDisLikeData.likes)
+        let req = await fetch(`http://127.0.0.1:3000/pic_posts/${likeDisLikeData.id}`, {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  likes: (likeDisLikeData.likes + 1),
+                }),
+              })
+              console.log(res)
+        let res = await req.json()
+        console.log(res)
+    }
+    
+    // allPhotos.map((element, index) => {
+    //     let v = `isVis${index}`
+    //     let setV =`setVis${index}`
+        
+        // return(
+        //     (const [v,setV] = useState([]))
+        // )
+        // })
     useEffect(() => {getPhotos()}, [])
 
     return (
@@ -26,36 +49,32 @@ function Pictures() {
             <h1>Photo Feed</h1>
             <div className='PictureFeed'>
                 {allPhotos.map((element, index) => {
+                    
                     return (
                         <div className="photofeedpics" key={index}>
                             <h3>{element.user.username}</h3>
                             <img id="imagebox" src={element.image} alt="" witdth="500" height="250"></img>
                             <div className="likesDislikesComments">
-                            <img id="like" src= "https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg" height="22px" width="22px"></img>
-                            <h4>{element.likes}</h4>
+                            <img id="like" src= "https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg" height="22px" width="22px" onClick={() => updateLikes(element)}></img>
+                            <h4 id="likes_tag">{element.likes}</h4>
                             <img id="dislike" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Broken_heart.svg/1250px-Broken_heart.svg.png" height="17px" width="17px"></img>
-                            <h4>{element.dislike}</h4>
+                            <h4 id="dislike_tag">{element.dislike}</h4>
                             <h5 id="expand-contract" onClick={expandContract}>Comments</h5>
                             </div>
                             <div id="comments-containers" >
-
-                                <div id="expand-container" style={{height: isVis ? "100px" : "0px", overflow:"auto"}}>
-                                {allPhotos.comments.map((element, )=> {
+                                {element.comments.map((ele, index)=> {
                                 return(
-                                    <div className="ciContainer" >
+                                    <div className={`ciContainer${element.id}`} key={index} style={{height: isVis ? "100px" : "0px", overflow:"auto"}}>
                                             <div>
-                                            <h6> {element.comment}</h6>
+                                            <h6> {ele.comment}</h6>
                                             </div>
                                             <img src= "https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg" height="22px" width="22px"></img>
-                                            <h4> {element.likes}</h4>
+                                            <h4> {ele.likes}</h4>
                                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Broken_heart.svg/1250px-Broken_heart.svg.png" height="20px" width="20px"></img>
-                                            <h4> {element.dislikes}</h4>
+                                            <h4> {ele.dislikes}</h4>
                                     </div>
                                     )
                                 })}
-                                </div>
-
-
                             </div>
                         </div>
                     )
