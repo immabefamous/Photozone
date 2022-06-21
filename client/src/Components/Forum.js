@@ -31,6 +31,7 @@ const Forum = () => {
                 {/* load forums  */}
                 
                 {allForums.map((element, index) => {
+                    {console.log(element)}
                     return (
                         <div className={`forum-container${index}`} key={index} >
                             <div className="forumlinkbox" onClick={() => setIsVis(false) } style={{ display: isVis ? "inherit" : "none" }}>
@@ -51,13 +52,9 @@ const Forum = () => {
                                 <h1>{element.title}</h1>
                             </div>
                             {element.forum_posts.map((element) => {
+                                
                                 return (
-                                    <div>
-                                        <h3>element.user.username</h3>
-                                        <img src={element.user.image} width="75" height="75" ></img>
-                                        <h2>{element.textarea}</h2>
-                                        <img src={element.img} alt="no image loaded" width="200" height="200" ></img>
-                                    </div>
+                                    <ForumPost element={element} />
                                 )
                                 
                             })}

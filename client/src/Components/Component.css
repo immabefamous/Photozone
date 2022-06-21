@@ -79,6 +79,9 @@
   display:flex;
   
 }
+#comments-containers {
+  order: 1px solid black;
+}
 
 .ciContainer {
   display: flex;
@@ -122,4 +125,10 @@
   border: 5px solid black;
   padding: 50px;
   margin: auto;
+}
+
+.forum-post-box {
+  border: 5px solid lightgrey;
+  width: 300px;
+  height: 600px;
 }

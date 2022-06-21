@@ -16,7 +16,7 @@ class PicPostsController < ApplicationController
     def update 
         pic_post = PicPost.find_by(id: params[:id])
         if pic_post 
-            pic_post.update(likes: (postPic_params.permit))
+            pic_post.update(likes: (params[:likes]))
         render json: pic_post, status: 201
         else
             render json: {error: "Not successful"}, status: 422
