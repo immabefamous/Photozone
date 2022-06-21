@@ -7,6 +7,7 @@ import Gear from "./Components/Gear";
 import Pictures from "./Components/Pictures";
 import Forum from "./Components/Forum";
 import NavBar from "./NavBar";
+import ForumPage from './Components/ForumPage';
 
 function App() {
   return (
