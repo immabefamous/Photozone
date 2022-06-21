@@ -2,8 +2,7 @@ import React from 'react'
 import "./Component.css"
 
 const ForumPost = (element) => {
-console.log(element.element)
-console.log(element.element.user)
+
     return (
         <div className="forum-post-box">
             <h3>{element.element.user.username}</h3>

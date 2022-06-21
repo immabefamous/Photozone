@@ -20,19 +20,20 @@ function Pictures() {
     //     setIsVis(prevState => !prevState)
     // }
 
-    async function updateLikes(likeDisLikeData) {
-        console.log(likeDisLikeData.likes)
-        let req = await fetch(`http://127.0.0.1:3000/pic_posts/${likeDisLikeData.id}`, {
+    async function updateLikes(likesData) {
+        let newLikes =  likesData.likes + 1
+        let req = await fetch(`http://127.0.0.1:3000/pic_posts/${likesData.id}`, {
                 method: "PATCH",
                 headers: {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                  likes: (likeDisLikeData.likes + 1),
+                  likes: (newLikes),
                 }),
               })
         let res = await req.json()
-        console.log(res)
+        allPhotos[(res.id - 1)].likes = res.likes
+        document.getElementById(`likes_tag${(res.id - 1)}`).innerText = allPhotos[(res.id - 1)].likes
     }
     
     // allPhotos.map((element, index) => {
@@ -57,9 +58,8 @@ function Pictures() {
                             <img id="imagebox" src={element.image} alt="" witdth="500" height="250"></img>
                             <div className="likesDislikesComments">
                             <img id="like" src= "https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg" height="22px" width="22px" onClick={() => updateLikes(element)}></img>
-                            <h4 id="likes_tag">{element.likes}</h4>
-                            <img id="dislike" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Broken_heart.svg/1250px-Broken_heart.svg.png" height="17px" width="17px"></img>
-                            <h4 id="dislike_tag">{element.dislike}</h4>
+                            <h4 id={`likes_tag${index}`}>{element.likes}</h4>
+                            
                             
                             </div>
                             <div id="comments-containers" >

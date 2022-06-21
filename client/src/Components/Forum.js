@@ -39,8 +39,6 @@ const Forum = () => {
                                 <img src="{element.image}"></img>
                                 <img id="like" src="https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg" height="22px" width="22px"></img>
                                 <h4>{element.likes}</h4>
-                                <img id="dislike" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Broken_heart.svg/1250px-Broken_heart.svg.png" height="17px" width="17px"></img>
-                                <h4>{element.dislikes}</h4>
                                 <h2> Creator: {element.user.name}</h2>
                                 <img src={element.user.image} alt="user image"></img>
                             </div>
