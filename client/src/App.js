@@ -8,8 +8,12 @@ import Pictures from "./Components/Pictures";
 import Forum from "./Components/Forum";
 import NavBar from "./NavBar";
 import ForumPage from './Components/ForumPage';
+import Signup from './Components/Signup';
+import {useEffect, useState} from 'react';
 
 function App() {
+  
+
   return (
     <div className="App">
       <h1>PhotoZone!</h1>
@@ -20,6 +24,7 @@ function App() {
         <Route path="gear" element={<Gear />} />
         <Route path="photofeed" element={<Pictures />} />
         <Route path="forums" element={<Forum />} />
+        <Route path="signup" element={<Signup />} />
       </Routes>
       
 

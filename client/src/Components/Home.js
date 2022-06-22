@@ -1,30 +1,43 @@
 import React from "react";
 import "./Component.css"
-import {useEffect, useState, useRef} from "react"
+import { useEffect, useState, useRef } from "react"
 
 function Home() {
-const [picInfo, setPicInfo] = useState([]) 
-const [index, setIndex] = useState(0);
-const delay = 2500;
-const timeoutRef = useRef(null);
-function resetTimeout() {
+  const [picInfo, setPicInfo] = useState([])
+  const [error, setError] = useState([]);
+  const [index, setIndex] = useState(0);
+  const delay = 2500;
+  const timeoutRef = useRef(null);
+  function resetTimeout() {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-}
-const dummyArray = ["a",'b','c','d','e','f','g','h','i','j','k']
-// async function slideShowPics() {
-//    let  req = await fetch('https://api.unsplash.com/photos/?client_id=3MyT9v7J2-oO2smMU-C0xhMV_E-Gc2SX_2CfHx64D0E')
-//    let  res = await req.json();
-//    console.log(res)
-//     setPicInfo(res)
-// }
+  }
+  const dummyArray = ["a", 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k']
+  // async function slideShowPics() {
+  //    let  req = await fetch('https://api.unsplash.com/photos/?client_id=3MyT9v7J2-oO2smMU-C0xhMV_E-Gc2SX_2CfHx64D0E')
+  //    let  res = await req.json();
+  //    console.log(res)
+  //     setPicInfo(res)
+  // }
 
-// useEffect(()=> {
-//     slideShowPics();
-// },[])
+  // useEffect(()=> {
+  //     slideShowPics();
+  // },[])
 
-useEffect(() => {
+  const [user, setUser] = useState("user");
+
+  useEffect(() => {
+    // auto-login
+    fetch("/me").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
+  // if (!user) return alert("sign in")
+
+  useEffect(() => {
     timeoutRef.current = setTimeout(
       () =>
         setIndex((prevIndex) =>
@@ -32,53 +45,155 @@ useEffect(() => {
         ),
       delay
     );
-    return () => {resetTimeout();};
+    return () => { resetTimeout(); };
   }, [index]);
-return (
-    <div className ='app-container'>
-        <h1>Welome to Photozone</h1>
-        <div className="slideshow">
-        <div className="slideshowSlider"
-        style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}>
 
-{/*Loop through PicInfo to have the pictures for the slide show Full-width images with number and caption text*/}
-    {dummyArray.map((element, index)=> {
-    return(
-        <div className="slide" key={index}>
-        <img src="https://previews.123rf.com/images/fordzolo/fordzolo1506/fordzolo150600296/41026708-example-white-stamp-text-on-red-backgroud.jpg" alt="tester" witdth= "500" height="250"></img>
-        <div className="text">"Dessert in Dubai"
+  let gettingUsername;
+  const [currentUser, setCurrentUser] = useState([])
+  const [errorMessages, setErrorMessages] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+
+  
+
+  const errors = {
+    uname: "invalid username",
+    pass: "invalid password"
+  };
+
+  async function getUser() {
+    const req = await fetch(`http://localhost:3000/users`);
+    const res = await req.json();
+    setCurrentUser(res);
+  }
+
+  const handleSubmit = (event) => {
+    //Prevent page reload
+    event.preventDefault();
+
+    let { uname, pass } = document.forms[0];
+    gettingUsername = uname.value
+    // User Login info
+    
+    
+
+    // Find user login info
+    const userData = currentUser.find((user) => user.username === uname.value);
+    console.log(userData)
+    // Compare user info
+    if (userData) {
+      if (userData.password !== pass.value) {
+        // Invalid password
+        setErrorMessages({ name: "pass", message: errors.pass });
+      } else {
+        setIsSubmitted(true);
+      }
+    } else {
+      // Username not found
+      setErrorMessages({ name: "uname", message: errors.uname });
+    }
+    console.log(userData.username)
+    let username = userData.username
+    let password = userData.password
+    fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({username, password}),
+    })
+    .then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      } else {
+        r.json().then((err) => console.log(err))
+      }
+    });
+   
+  };
+
+  // Generate JSX code for error message
+  const renderErrorMessage = (name) =>
+    name === errorMessages.name && (
+      <div className="error">{errorMessages.message}</div>
+    );
+
+  
+
+  // JSX code for login form
+  const renderForm = (
+    <div className="form">
+      <form onSubmit={handleSubmit}>
+        <div className="input-container">
+          <label>Username </label>
+          <input type="text" name="uname" required />
+          {renderErrorMessage("uname")}
         </div>
-        </div> 
-    )
-})}
-{/* end of loop */}
-</div>
-<div className="slideshowDots">
-        {dummyArray.map((_, idx) => (
-          <div key={idx} 
-          className={`slideshowDot${index === idx ? "active" : ""}`}
-          onClick={() => {
-            setIndex(idx);
-          }}
-          ></div>
-        ))}
+        <div className="input-container">
+          <label>Password </label>
+          <input type="password" name="pass" required />
+          {renderErrorMessage("pass")}
+        </div>
+        <div className="button-container">
+          <input type="submit" value="Login"/>
+          <a href="http://localhost:4000/signup"> Sign Up </a>
+        </div>
+      </form>
+    </div>
+  );
+
+  useEffect(()=> {getUser()}, [])
+
+  return (
+    <div className='app-container'>
+      <h1>Welome to Photozone</h1>
+      <div className="login-form">
+        <div className="title"></div>
+        {/* exhange <div>User is successfully logged in</div> with Jerry's component */}
+        {isSubmitted ? <h1>{user.name}</h1> : renderForm}
       </div>
-</div>
+      <div className="slideshow">
+        <div className="slideshowSlider"
+          style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}>
 
-<div className="3_image_box">
+          {/*Loop through PicInfo to have the pictures for the slide show Full-width images with number and caption text*/}
+          {dummyArray.map((element, index) => {
+            return (
+              <div className="slide" key={index}>
+                <img src="https://previews.123rf.com/images/fordzolo/fordzolo1506/fordzolo150600296/41026708-example-white-stamp-text-on-red-backgroud.jpg" alt="tester" witdth="500" height="250"></img>
+                <div className="text">"Dessert in Dubai"
+                </div>
+              </div>
+            )
+          })}
+          {/* end of loop */}
+        </div>
+        <div className="slideshowDots">
+          {dummyArray.map((_, idx) => (
+            <div key={idx}
+              className={`slideshowDot${index === idx ? "active" : ""}`}
+              onClick={() => {
+                setIndex(idx);
+              }}
+            ></div>
+          ))}
+        </div>
+      </div>
 
-</div>
-<div className="textbox_for_3_image_box">
+      <div className="3_image_box">
 
-</div>
-<div className="imagebox">
-</div>
-<div className="text_for_imagebox">
+      </div>
+      <div className="textbox_for_3_image_box">
 
-</div>
-</div>
+      </div>
+      <div className="imagebox">
+      </div>
+      <div className="text_for_imagebox">
 
-    )
+      </div>
+    </div>
+
+  )
 
 }
 

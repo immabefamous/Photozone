@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 const Forum = () => {
     const [allForums, setAllForums] = useState([])
     const [isVis, setIsVis] = useState(true)
+    const [isVis2, setIsVis2] = useState(false)
     const [selectedForum, setSelectedForum] = useState([])
 
     const loadForums = async () => {
@@ -12,13 +13,30 @@ const Forum = () => {
         let res = await req.json()
         setAllForums(res)
     }
-    console.log(allForums)
 
 
-    // const loadChosenForum = () => {
-    //     setIsVis(false)
+    const handleSubmit = async (event) => {
+        //Prevent page reload
+        event.preventDefault();
 
-    // }
+        let { title, image } = document.forms[0];
+        console.log(title.value, image.value)
+        let req = await fetch('http://localhost:3000/forums', {
+            method: 'POST', 
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                title: title.value,
+                image: image.value,
+
+            }
+            ) },  
+            )
+        let res = req.json()
+        if (res.ok) {
+            setAllForums((prevState) => [...prevState, res])
+        }
+        
+    }
 
     useEffect(() => { loadForums() }, [])
 
@@ -51,8 +69,22 @@ const Forum = () => {
                 <button id="back-to-forums" onClick={() =>setIsVis(true)} style={{ display: !isVis ? "inherit" : "none" }}>Back To All Forums </button>
                 {!isVis ? <ForumPage element={selectedForum} setIsVis={setIsVis} isVis= {isVis}/> : null}
             </div>
-
-
+            <button onClick={()=>{setIsVis2(true)}}> Create Forum</button>
+            <div className="form" style={{ display: isVis2 ? "block" : "none" }}>
+                <form onSubmit={handleSubmit}>
+                    <div className="input-container">
+                        <label>Post Title</label>
+                        <input type="text" name="title" required />
+                    </div>
+                    <div className="input-container">
+                        <label>Image </label>
+                        <input type="text" name="image" required />
+                    </div>
+                    <div className="button-container">
+                        <input type="submit" value="Create Forum" />
+                    </div>
+                </form>
+            </div>
 
         </div>
     )

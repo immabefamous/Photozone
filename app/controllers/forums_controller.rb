@@ -25,7 +25,7 @@ class ForumsController < ApplicationController
     end
     
     def create 
-        newForum = Forum.create(params.permit) 
+        newForum = Forum.create(forum_params_permit) 
         if newForum.valid?
             render json: newForum, status:201 
         else
