@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 
 
-function Pictures(loggedInUser) {
+function Pictures({loggedInUser}) {
     const [allPhotos, getAllPhotos] = useState([])
     const [isVis, setIsVis] = useState(false)
     const [selectedComments, setSelectedComments] = useState({})

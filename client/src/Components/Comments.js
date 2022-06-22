@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-const Comments = (element, ind) => {
+const Comments = ({element, ind}) => {
     
     function showComments (commentBox) {
         document.getElementById(`ciContainer${commentBox.id}`).style.height = "200px"
@@ -10,13 +10,13 @@ const Comments = (element, ind) => {
     
    
     return (
-        <div onClick={() => showComments(element.element)}> Comments
+        <div onClick={() => showComments(element)}> Comments
             
-            <div id={`ciContainer${element.element.id}`} key={ind}  style={{overflow: "auto", height: "0px"}}>
+            <div id={`ciContainer${element.id}`} key={ind}  style={{overflow: "auto", height: "0px"}}>
                 {/* {element.comments.map((ele) => { */}
                 <div>
                     
-                        {element.element.comments.map((ele)=> {
+                        {element.comments.map((ele)=> {
                             return(
                                 <div key={ele.id}>
                             <h6> {ele.comment}</h6>

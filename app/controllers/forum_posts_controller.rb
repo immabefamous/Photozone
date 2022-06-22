@@ -35,7 +35,7 @@ class ForumPostsController < ApplicationController
     private
 
     def forumPosts_params_permit 
-        params.permit(:textarea, :image)
+        params.permit(:textarea, :image, :user_id, :forum_id)
     end
 
 end

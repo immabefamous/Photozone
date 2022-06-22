@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import ForumPost from './ForumPost'
 import { Link } from 'react-router-dom'
 
-const ForumPage = (loggedInUser, element, setIsVis, isVis) => {
-    console.log(isVis)
+const ForumPage = ({loggedInUser, element, setIsVis, isVis}) => {
+    console.log(element, loggedInUser)
     const [isVis2, setIsVis2] = useState(false)
     const handleSubmit = async (event) => {
         //Prevent page reload
@@ -17,34 +17,48 @@ const ForumPage = (loggedInUser, element, setIsVis, isVis) => {
             body: JSON.stringify({
                 textarea: title.value,
                 image: image.value,
-                user_id: loggedInUser.id
+                user_id: loggedInUser.id,
+                forum_id: element.id
 
             }
             ) },  
             )
-        let res = req.json()
-        if (res.ok) {
-            element.element.forum_posts.push(res)
+        let res = await req.json()
+        element.forum_posts.push(res)
+        let s = document.getElementById("forum-header")
+        let nDiv = document.createElement('div')
+        nDiv.className = "forum-post-box"
+        let h3 = document.createElement('h3')
+        let img = document.createElement('img')
+        let h2 = document.createElement('h2')
+        let img2 = document.createElement("img")
+        h3.innerText = res.user.username
+        img.src = res.user.image
+        h2.innerText = res.textarea
+        img2.src = res.image
+        nDiv.append(h3, img, h2, img2)
+        s.append(nDiv)
+
         }
         
-    }
+    
     return (
             <div id="forum_page" style={{ display: !isVis ? "inherit" : "none" }}>
                 <div id="forum-header">
-                    <h1>{element.element.title}</h1>
+                    <h1>{element.title}</h1>
                 </div>
-                {element.element.forum_posts.map((element) => {
+                {element.forum_posts.map((element) => {
                     console.log(element)
                     return (
-                        <ForumPost loggedInUser={loggedInUser} element={element} />
+                        <ForumPost element={element} />
                     )
                 })}
                <button onClick={()=>{setIsVis2(true)}}> Create Post</button>
             <div className="form" style={{ display: isVis2 ? "block" : "none" }}>
                 <form onSubmit={handleSubmit}>
                     <div className="input-container">
-                        <label>Post Title</label>
-                        <input type="text" name="title" required />
+                        <label>Thoughts</label>
+                        <input type="textarea" name="title" required />
                     </div>
                     <div className="input-container">
                         <label>Image </label>

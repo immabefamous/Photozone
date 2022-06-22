@@ -36,7 +36,7 @@ class ForumsController < ApplicationController
     private
 
     def forum_params_permit 
-        params.permit(:title, :image)
+        params.permit(:title, :image, :user_id)
     end
 
 end
