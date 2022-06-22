@@ -2,9 +2,7 @@ import React from "react";
 import "./Component.css"
 import { useEffect, useState, useRef } from "react"
 
-function Home() {
-  const [picInfo, setPicInfo] = useState([])
-  const [error, setError] = useState([]);
+function Home({loggedInUser}) {
   const [index, setIndex] = useState(0);
   const delay = 2500;
   const timeoutRef = useRef(null);
@@ -25,16 +23,30 @@ function Home() {
   //     slideShowPics();
   // },[])
 
-  const [user, setUser] = useState("user");
-
   useEffect(() => {
     // auto-login
-    fetch("/me").then((r) => {
+    fetch(`http://127.0.0.1:3000/users/${loggedInUser.id}`).then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user));
+        setIsSubmitted(true)
       }
     });
   }, []);
+
+
+  const [user, setUser] = useState("user");
+
+  async function Login(user) {
+    let req = await fetch(`http://127.0.0.1:3000/sessions/${user.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                subscription: "true",
+            }),
+        });
+      }
   // if (!user) return alert("sign in")
 
   useEffect(() => {
@@ -87,6 +99,7 @@ function Home() {
         setErrorMessages({ name: "pass", message: errors.pass });
       } else {
         setIsSubmitted(true);
+        Login(userData)
       }
     } else {
       // Username not found
@@ -95,7 +108,7 @@ function Home() {
     console.log(userData.username)
     let username = userData.username
     let password = userData.password
-    fetch("http://localhost:3000/login", {
+    fetch("http://localhost:3000/sessions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -151,6 +164,7 @@ function Home() {
         <div className="title"></div>
         {/* exhange <div>User is successfully logged in</div> with Jerry's component */}
         {isSubmitted ? <h1>{user.name}</h1> : renderForm}
+        {}
       </div>
       <div className="slideshow">
         <div className="slideshowSlider"

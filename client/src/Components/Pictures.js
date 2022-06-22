@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 
 
-function Pictures() {
+function Pictures(loggedInUser) {
     const [allPhotos, getAllPhotos] = useState([])
     const [isVis, setIsVis] = useState(false)
     const [selectedComments, setSelectedComments] = useState({})
@@ -37,6 +37,7 @@ function Pictures() {
         document.getElementById(`likes_tag${(res.id - 1)}`).innerText = allPhotos[(res.id - 1)].likes
     }
 
+
     const handleSubmit = (event) => {
         //Prevent page reload
         event.preventDefault();
@@ -45,12 +46,14 @@ function Pictures() {
         let grabbedTitle = title.value
         let grabbedImage = image.value
         console.log(grabbedImage, grabbedTitle)
+        console.log(loggedInUser.loggedInUser)
         fetch("http://localhost:3000/pic_posts", {
             method: 'POST', 
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
                 title: grabbedTitle,
-                image: grabbedImage, 
+                image: grabbedImage,
+                user_id: loggedInUser.loggedInUser.id 
             }),
         })
             .then((r) => {
@@ -95,9 +98,10 @@ function Pictures() {
             </div>
             <div className='PictureFeed'>
                 {allPhotos.map((element, index) => {
-
+                    console.log(allPhotos)
                     return (
                         <div className="photofeedpics" key={index} style={{ overflow: "auto" }}>
+                            {console.log(element.user)}
                             <h3>{element.user.username}</h3>
                             <img id="imagebox" src={element.image} alt="" witdth="500" height="250"></img>
                             <div className="likesDislikesComments">

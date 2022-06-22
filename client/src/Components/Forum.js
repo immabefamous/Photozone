@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import ForumPage from "./ForumPage"
 import { Link } from "react-router-dom"
 
-const Forum = () => {
+const Forum = (loggedInUser) => {
     const [allForums, setAllForums] = useState([])
     const [isVis, setIsVis] = useState(true)
     const [isVis2, setIsVis2] = useState(false)
@@ -67,7 +67,7 @@ const Forum = () => {
                     
                 })}
                 <button id="back-to-forums" onClick={() =>setIsVis(true)} style={{ display: !isVis ? "inherit" : "none" }}>Back To All Forums </button>
-                {!isVis ? <ForumPage element={selectedForum} setIsVis={setIsVis} isVis= {isVis}/> : null}
+                {!isVis ? <ForumPage loggedInUser={loggedInUser} element={selectedForum} setIsVis={setIsVis} isVis= {isVis}/> : null}
             </div>
             <button onClick={()=>{setIsVis2(true)}}> Create Forum</button>
             <div className="form" style={{ display: isVis2 ? "block" : "none" }}>

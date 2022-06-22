@@ -7,8 +7,13 @@ class UsersController < ApplicationController
     end
 
     def show
-        render json: @current_user
-      end
+        user = User.find_by(id: params[:id])
+        if user.subscription === true
+            render json: user, status: 200
+        else 
+            render json: {error: "not logged in"}, status:404
+        end
+    end
 
     def update 
         user = User.find_by(username:params[:username])

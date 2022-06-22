@@ -1,7 +1,7 @@
 import React from 'react'
 import "./Component.css"
 
-const ForumPost = (element) => {
+const ForumPost = (loggedInUser, element) => {
     console.log(element)
     return (
         <div className="forum-post-box">

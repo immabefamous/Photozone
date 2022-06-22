@@ -36,7 +36,7 @@ class PicPostsController < ApplicationController
     private
 
     def postPic_params_permit 
-        params.permit(:title, :image)
+        params.permit(:title, :image, :user_id)
     end
 
 

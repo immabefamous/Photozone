@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ForumPost from './ForumPost'
 import { Link } from 'react-router-dom'
 
-const ForumPage = (element, setIsVis, isVis) => {
+const ForumPage = (loggedInUser, element, setIsVis, isVis) => {
     console.log(isVis)
     const [isVis2, setIsVis2] = useState(false)
     const handleSubmit = async (event) => {
@@ -17,6 +17,7 @@ const ForumPage = (element, setIsVis, isVis) => {
             body: JSON.stringify({
                 textarea: title.value,
                 image: image.value,
+                user_id: loggedInUser.id
 
             }
             ) },  
@@ -35,7 +36,7 @@ const ForumPage = (element, setIsVis, isVis) => {
                 {element.element.forum_posts.map((element) => {
                     console.log(element)
                     return (
-                        <ForumPost element={element} />
+                        <ForumPost loggedInUser={loggedInUser} element={element} />
                     )
                 })}
                <button onClick={()=>{setIsVis2(true)}}> Create Post</button>
