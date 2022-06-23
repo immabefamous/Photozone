@@ -24,7 +24,7 @@ class CommentsController < ApplicationController
     end
     
     def create 
-        newComment = Comment.create(comments_params.permit) 
+        newComment = Comment.create(comments_params_permit) 
         if newComment.valid?
             render json: newComment, status:201 
         else
@@ -32,10 +32,18 @@ class CommentsController < ApplicationController
         end
     end
 
+    def destroy
+        comment = Comment.find(params[:id])
+        if comment.valid?
+        comment.destroy
+        end
+        
+      end
+
     private
 
     def comments_params_permit 
-        params.permit(:textarea, :image)
+        params.permit(:comment, :user_id, :pic_post_id)
     end
 
 end

@@ -32,6 +32,13 @@ class ForumPostsController < ApplicationController
         end
     end
 
+    def destroy
+        forumPost = ForumPost.find(params[:id])
+        if forumPost.valid?
+        forumPost.destroy
+        end
+        
+      end
     private
 
     def forumPosts_params_permit 

@@ -33,6 +33,15 @@ class PicPostsController < ApplicationController
         end
     end
 
+    def destroy
+        picPost = PicPost.find(params[:id])
+        if picPost.valid?
+        picPost.destroy
+        end
+        
+      end
+
+
     private
 
     def postPic_params_permit 

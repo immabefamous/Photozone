@@ -25,19 +25,20 @@ const ForumPage = ({loggedInUser, element, setIsVis, isVis}) => {
             )
         let res = await req.json()
         element.forum_posts.push(res)
-        let s = document.getElementById("forum-header")
-        let nDiv = document.createElement('div')
-        nDiv.className = "forum-post-box"
-        let h3 = document.createElement('h3')
-        let img = document.createElement('img')
-        let h2 = document.createElement('h2')
-        let img2 = document.createElement("img")
-        h3.innerText = res.user.username
-        img.src = res.user.image
-        h2.innerText = res.textarea
-        img2.src = res.image
-        nDiv.append(h3, img, h2, img2)
-        s.append(nDiv)
+        // let s = document.getElementById("forum-header")
+        // let nDiv = document.createElement('div')
+        // nDiv.className = "forum-post-box"
+        // let h3 = document.createElement('h3')
+        // let img = document.createElement('img')
+        // let h2 = document.createElement('h2')
+        // let img2 = document.createElement("img")
+        // h3.innerText = res.user.username
+        // img.src = res.user.image
+        // h2.innerText = res.textarea
+        // img2.src = res.image
+        // nDiv.append(h3, img, h2, img2)
+        // s.append(nDiv)
+        setIsVis2(false)
 
         }
         
@@ -50,10 +51,11 @@ const ForumPage = ({loggedInUser, element, setIsVis, isVis}) => {
                 {element.forum_posts.map((element) => {
                     console.log(element)
                     return (
-                        <ForumPost element={element} />
+                        <ForumPost element={element} loggedInUser={loggedInUser}/>
+
                     )
                 })}
-               <button onClick={()=>{setIsVis2(true)}}> Create Post</button>
+               <button onClick={()=>{setIsVis2(true)}} style={{ display: !isVis2 ? "block" : "none" }}> Create Post</button>
             <div className="form" style={{ display: isVis2 ? "block" : "none" }}>
                 <form onSubmit={handleSubmit}>
                     <div className="input-container">
@@ -65,7 +67,7 @@ const ForumPage = ({loggedInUser, element, setIsVis, isVis}) => {
                         <input type="text" name="image" required />
                     </div>
                     <div className="button-container">
-                        <input type="submit" value="Create Forum" />
+                        <input type="submit" value="Create Post" />
                     </div>
                 </form>
             </div>

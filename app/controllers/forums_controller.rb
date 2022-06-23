@@ -15,9 +15,9 @@ class ForumsController < ApplicationController
     end
 
     def update 
-        forums = Forum.find_by(title: params[:title])
+        forums = Forum.find_by(id: params[:id])
         if forums 
-            forums.update(forum_params_permit)
+            forums.update(likes: params[:likes])
         render json: forums, status: 201
         else
             render json: {error: "Not successful"}, status: 422
@@ -32,6 +32,14 @@ class ForumsController < ApplicationController
             render json: {"errors":"invalid information"}, status: 422
         end
     end
+
+    def destroy
+        forum = Forum.find(params[:id])
+        if forum.valid?
+        forum.destroy
+        end
+        
+      end
 
     private
 
