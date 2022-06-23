@@ -11,7 +11,8 @@ const Comments = ({ element, ind, loggedInUser }) => {
 
     }
 
-    async function updateLikes(likesData) {
+    async function updateLikes(likesData, index) {
+        console.log(index)
         let newLikes;
         setIsVisL(!isVisL)
         if (isVisL == true) {
@@ -19,7 +20,7 @@ const Comments = ({ element, ind, loggedInUser }) => {
         } else {
         newLikes = likesData.likes - 1
         }
-        let req = await fetch(`http://127.0.0.1:3000/forums/${likesData.id}`, {
+        let req = await fetch(`http://127.0.0.1:3000/comments/${likesData.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -29,8 +30,10 @@ const Comments = ({ element, ind, loggedInUser }) => {
             }),
         })
         let res = await req.json()
-        element.comments[(res.id - 1)].likes = res.likes
-        document.getElementById(`likes_tag${(res.id - 1)}`).innerText = element.comments[(res.id - 1)].likes
+        console.log(element.comments, likesData)
+
+        element.comments[index].likes = newLikes
+        document.getElementById(`likes_tag${index}`).innerText = element.comments[index].likes
     }
 
 
@@ -60,10 +63,10 @@ const Comments = ({ element, ind, loggedInUser }) => {
                 <div>
                     {element.comments.map((ele, index, ) => {
                         return (
-                            <div key={ele.id} style={{display: "flex"}}>
-                                {/* <h6> {element.user.username}</h6> */}
+                            <div id="listOfComments" key={ele.id} style={{display: "flex", alignItems: "center", justifyContent: "center", margin: "10px"}}>
+                                <h6> {ele.user.username}</h6>
                                 <h5> {ele.comment}</h5>
-                                <img src="https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg" height="22px" width="22px" onClick={() => updateLikes(element)}></img>
+                                <img src="https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg" height="22px" width="22px" onClick={() => updateLikes(ele, ind)}></img>
                                 <h4 id={`likes_tag${index}`}> {ele.likes}</h4>
                             </div>
                         )

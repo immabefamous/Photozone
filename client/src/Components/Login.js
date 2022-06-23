@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Home from "./Home";
 import "./Component.css";
 
-function Login({setLoggedInUser}) {
+
+function Login({ setLoggedInUser }) {
 
     const [user, setUser] = useState("null")
 
@@ -79,7 +80,7 @@ function Login({setLoggedInUser}) {
                 subscription: (true),
             }),
         })
-        
+
 
     };
 
@@ -107,7 +108,6 @@ function Login({setLoggedInUser}) {
                 </div>
                 <div className="button-container">
                     <input type="submit" value="Login" />
-                    <a href="http://localhost:4000/signup"> Sign Up </a>
                 </div>
             </form>
         </div>
@@ -115,14 +115,90 @@ function Login({setLoggedInUser}) {
 
     useEffect(() => { getUser() }, [])
 
+    const [isSubmitted2, setIsSubmitted2] = useState(true);
+
+    const errors2 = {
+        uname: "invalid username",
+        pass: "invalid password",
+
+        fname: "give a proper full name"
+    };
+
+    async function handleSubmit2(event) {
+        //Prevent page reload
+        event.preventDefault();
+
+        let { uname, pass, img, fname } = document.forms[1];
+
+        console.log(pass.value)
+        await fetch('http://localhost:3000/users', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name: fname.value,
+                image: img.value,
+                username: uname.value,
+                password: pass.value,
+            }
+            )
+        },
+        )
+        setIsSubmitted2(true)
+        alert("you can now log in")
+    }
+
+    // JSX code for login form
+    const renderForm2 = (
+        <div className="form2">
+
+            <form onSubmit={handleSubmit2}>
+                {/* First and Last Name */}
+                <div className="input-container">
+                    <label>Full Name </label>
+                    <input type="text" name="fname" required />
+
+                </div>
+                {/* Image */}
+                <div className="input-container">
+                    <label>Image</label>
+                    <input type="text" name="img" required />
+
+                </div>
+
+                {/* User Name */}
+                <div className="input-container">
+                    <label>Username </label>
+                    <input type="text" name="uname" required />
+
+                </div>
+                {/* Password */}
+                <div className="input-container">
+                    <label>Password </label>
+                    <input type="text" name="pass" required />
+
+                </div>
+
+                <div className="button-container">
+                    <input type="submit" value="Signup" />
+
+                </div>
+            </form>
+        </div>
+    );
 
     return (
-        <div className="login-form">
-            <div className="title"></div>
-            {/* exhange <div>User is successfully logged in</div> with Jerry's component */}
-            {isSubmitted ? <Home /> : renderForm}
-            { }
+        <div className="app">
+            <div className="login-form">
+                <div className="title">Log In</div>
+                {/* exhange <div>User is successfully logged in</div> with Jerry's component */}
+                {isSubmitted ? <Home /> : renderForm}
+            </div>
+                <div className="signup-form">
+                    <div className="title" onClick={()=> {setIsSubmitted2(!isSubmitted2)}}>Sign Up</div>
+                    {isSubmitted2 ? "" : renderForm2}
+                </div>
         </div>
+        
     )
 }
 

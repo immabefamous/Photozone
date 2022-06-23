@@ -47,13 +47,13 @@ function App() {
     <div className="App">
       <h1>PhotoZone!</h1>
       <h6>all things photography</h6>
-        <NavBar />
+        <NavBar setLoggedInUser={setLoggedInUser}/>
       <Routes>
         <Route path="/" element={<Home loggedInUser={loggedInUser}/>} />
         <Route path="gear" element={<Gear loggedInUser={loggedInUser}/>} />
         <Route path="photofeed" element={<Pictures loggedInUser={loggedInUser}/>} />
         <Route path="forums" element={<Forum loggedInUser={loggedInUser}/>} />
-        <Route path="signup" element={<Signup />} />
+        
       </Routes>
       
       {/* <button id="login_logout" 

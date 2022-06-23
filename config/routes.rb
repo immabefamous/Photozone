@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   resources :forums
   resources :users
   resources :sessions
-  # patch "/login", to: "sessions#update"
-  # post "/login", to: "sessions#create"
+  patch "/login", to: "sessions#update"
+  post "/login", to: "sessions#create"
   get "/me", to: "users#show"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

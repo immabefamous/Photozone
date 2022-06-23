@@ -1,26 +1,27 @@
 import React, { useState } from "react";
 import Home from "./Home";
 import "./Component.css";
+import Login from "./Login";
 
 function Signup() {
 
 // Add this in your component file
   // React States
   
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitted2, setIsSubmitted2] = useState(false);
 
-  const errors = {
+  const errors2 = {
     uname: "invalid username",
     pass: "invalid password",
     
     fname: "give a proper full name"
   };
 
-  async function handleSubmit(event) {
+  async function handleSubmit2(event) {
     //Prevent page reload
     event.preventDefault();
 
-    let { uname, pass, img, fname } = document.forms[0];
+    let { uname, pass, img, fname } = document.forms[1];
 
 
    await fetch('http://localhost:3000/users', {
@@ -34,14 +35,14 @@ function Signup() {
             }
             ) },  
             )
-  setIsSubmitted(true)          
+  setIsSubmitted2(true)          
   }
 
   // JSX code for login form
-  const renderForm = (
-    <div className="form">
+  const renderForm2 = (
+    <div className="form2">
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit2}>
         {/* First and Last Name */}
         <div className="input-container">
           <label>Full Name </label>
@@ -85,9 +86,9 @@ function Signup() {
 
   return (
     <div className="app">
-      <div className="login-form">
+      <div className="signup-form">
         <div className="title">Sign Up</div>
-        {isSubmitted ? <Home /> : renderForm}
+        {isSubmitted2 ? "Now LogIn" : renderForm2}
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
     def update 
         comments = Comment.find_by(id: params[:id])
         if comments 
-            comments.update(forumPosts_params_permit)
+            comments.update(likes: (params[:id]))
         render json: comments, status: 201
         else
             render json: {error: "Not successful"}, status: 422

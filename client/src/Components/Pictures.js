@@ -112,7 +112,7 @@ function Pictures({ loggedInUser }) {
             <div className='PictureFeed'>
                 {allPhotos.map((element, index) => {
                     return (
-                        <div id={`photofeedpics${element.id}`} key={index} style={{ overflow: "auto" }}>
+                        <div id={`photofeedpics${element.id}`} key={index} style={{ overflow: "auto", border: "5px solid black" }}>
                             <h3>{element.user.username}</h3>
                             <img id="imagebox" src={element.image} alt="" witdth="500" height="250"></img>
                             <h4>{element.title}</h4>
@@ -124,7 +124,7 @@ function Pictures({ loggedInUser }) {
                                 }
 
                             </div>
-                            <div id="comments-containers" >
+                            <div id="comments-containers" style={{ overflow: "auto", border: "5px solid lightgrey" }}>
                                 <Comments element={element} ind={index} loggedInUser={loggedInUser} />
                             </div>
                         </div>
