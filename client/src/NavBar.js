@@ -7,12 +7,10 @@ function NavBar({setLoggedInUser}) {
 
     return (
         <nav>
-            <NavLink to="/gear">Gear</NavLink>
+            <NavLink to="/profile">Profile</NavLink>
             <NavLink to="/photofeed">Pictures</NavLink>
             <NavLink to="/forums">Forum</NavLink>
-            <button onClick={() => setLoggedInUser(null)}> LOG OUT</button>
-            
-        
+            <button id="logOut" onClick={() => setLoggedInUser(null)}> LOG OUT</button>
         </nav>
     );
 }

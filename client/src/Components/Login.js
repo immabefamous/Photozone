@@ -186,17 +186,37 @@ function Login({ setLoggedInUser }) {
         </div>
     );
 
+    function flipCard () {
+        let front = document.getElementsByClassName("LoginPage")
+        console.log(front)
+        console.log(front[0].classList)
+        if (front[0].classList[1] == 'flipped') {
+            front[0].classList.remove('flipped')
+        } else {
+            front[0].classList.add('flipped')
+        }
+        console.log(front[0].classList)
+    }
+
     return (
-        <div className="app">
-            <div className="login-form">
-                <div className="title">Log In</div>
-                {/* exhange <div>User is successfully logged in</div> with Jerry's component */}
-                {isSubmitted ? <Home /> : renderForm}
+        <div className="LoginWholePage">
+            <div>
+                <h1>PhotoZone!</h1>
+                <h6>all things photography</h6>
             </div>
+            <div className="LoginPage">
+                <div className="login-form">
+                    <div className="title">Log In</div>
+                    {/* exhange <div>User is successfully logged in</div> with Jerry's component */}
+                    {isSubmitted ? <Home /> : renderForm}
+                    <button onClick={() => flipCard()}>SIGN UP</button>
+                 </div>
                 <div className="signup-form">
-                    <div className="title" onClick={()=> {setIsSubmitted2(!isSubmitted2)}}>Sign Up</div>
-                    {isSubmitted2 ? "" : renderForm2}
+                    <div className="title">Sign Up</div>
+                    {renderForm2}
+                    <button onClick={() => flipCard()}>BACK TO LOGIN</button>
                 </div>
+            </div>
         </div>
         
     )

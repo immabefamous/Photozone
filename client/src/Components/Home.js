@@ -167,7 +167,7 @@ function Home({loggedInUser}) {
         {isSubmitted ? <h1>{user.name}</h1> : renderForm}
         {}
       </div>
-      <div className="slideshow">
+      <div className="slideshow" >
         <div className="slideshowSlider"
           style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}>
 
@@ -175,7 +175,7 @@ function Home({loggedInUser}) {
           {PicInfo.map((element, index) => {
             return (
               <div className="slide" key={index} >
-                <img src={element.urls.regular} alt="tester" witdth="500" height="250"></img>
+                <img src={element.urls.regular} alt="tester" witdth="7590" height="500"></img>
               </div>
             )
           })}

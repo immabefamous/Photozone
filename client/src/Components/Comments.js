@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 const Comments = ({ element, ind, loggedInUser }) => {
     const [isVis2, setIsVis2] = useState(false)
-    const [isVisL, setIsVisL] = useState(false)
+    const [isVisL, setIsVisL] = useState(true)
 
     function showComments(commentBox) {
         document.getElementById(`ciContainer${commentBox.id}`).style.height = "200px"
@@ -33,7 +33,7 @@ const Comments = ({ element, ind, loggedInUser }) => {
         console.log(element.comments, likesData)
 
         element.comments[index].likes = newLikes
-        document.getElementById(`likes_tag${index}`).innerText = element.comments[index].likes
+        document.getElementById(`likes_tag${((element.id * 100) + (index * 10))}`).innerText = element.comments[index].likes
     }
 
 
@@ -63,11 +63,13 @@ const Comments = ({ element, ind, loggedInUser }) => {
                 <div>
                     {element.comments.map((ele, index, ) => {
                         return (
-                            <div id="listOfComments" key={ele.id} style={{display: "flex", alignItems: "center", justifyContent: "center", margin: "10px"}}>
+                            <div id="listOfComments" key={ele.id} style={{display: "flex"}}>
+                                {console.log(ele)}
+                                <img id="userImg" src={ele.user.img} alt="" width="50" height="50"></img>
                                 <h6> {ele.user.username}</h6>
                                 <h5> {ele.comment}</h5>
-                                <img src="https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg" height="22px" width="22px" onClick={() => updateLikes(ele, ind)}></img>
-                                <h4 id={`likes_tag${index}`}> {ele.likes}</h4>
+                                <img src="https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg" height="22px" width="22px" onClick={() => updateLikes(ele, index)}></img>
+                                <h4 id={`likes_tag${((element.id * 100) + (index * 10))}`}> {ele.likes}</h4>
                             </div>
                         )
                     })}

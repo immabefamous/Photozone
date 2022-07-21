@@ -16,7 +16,7 @@ const ForumPost = ({ loggedInUser, element }) => {
             <img src={element.user.image} width="75" height="75" ></img>
             <h2>{element.textarea}</h2>
             <img src={element.img} alt="no image loaded" width="200" height="200" ></img>
-            {(loggedInUser.id == element.user.id) ?
+            {(loggedInUser.id === element.user.id) ?
                 <button id="deleteButton" onClick={() => deletePost(element)}>"[X]"</button> : ""
             }
         </div>

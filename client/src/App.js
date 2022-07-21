@@ -3,7 +3,7 @@ import React from "react";
 import './App.css';
 import { Routes, Route, Link } from "react-router-dom";
 import Home from "./Components/Home";
-import Gear from "./Components/Gear";
+import Profile from "./Components/Profile";
 import Pictures from "./Components/Pictures";
 import Forum from "./Components/Forum";
 import NavBar from "./NavBar";
@@ -44,13 +44,13 @@ function App() {
     //   }
 
   return (
-    <div className="App">
+    <div className="App" style={{backgroundColor: "lightgrey"}}>
       <h1>PhotoZone!</h1>
       <h6>all things photography</h6>
         <NavBar setLoggedInUser={setLoggedInUser}/>
       <Routes>
         <Route path="/" element={<Home loggedInUser={loggedInUser}/>} />
-        <Route path="gear" element={<Gear loggedInUser={loggedInUser}/>} />
+        <Route path="profile" element={<Profile loggedInUser={loggedInUser}/>} />
         <Route path="photofeed" element={<Pictures loggedInUser={loggedInUser}/>} />
         <Route path="forums" element={<Forum loggedInUser={loggedInUser}/>} />
         

@@ -27,9 +27,10 @@ function Pictures({ loggedInUser }) {
         setIsVisL(!isVisL)
         if (isVisL == true) {
         newLikes = likesData.likes + 1
-        } else {
-        newLikes = likesData.likes - 1
+        } else if (isVisL == false) {
+        newLikes = likesData.likes - 1 
         }
+        
         let req = await fetch(`http://127.0.0.1:3000/pic_posts/${likesData.id}`, {
             method: "PATCH",
             headers: {
@@ -40,8 +41,10 @@ function Pictures({ loggedInUser }) {
             }),
         })
         let res = await req.json()
-        allPhotos[(res.id - 1)].likes = res.likes
-        document.getElementById(`likes_tag${(res.id - 1)}`).innerText = allPhotos[(res.id - 1)].likes
+        
+        
+        likesData.likes = res.likes
+        document.getElementById(`likes_tag${(likesData.id)}`).innerText = likesData.likes
     }
         async function deletePost (info) {
             const del = document.getElementById(`photofeedpics${info.id}`)
@@ -112,19 +115,23 @@ function Pictures({ loggedInUser }) {
             <div className='PictureFeed'>
                 {allPhotos.map((element, index) => {
                     return (
-                        <div id={`photofeedpics${element.id}`} key={index} style={{ overflow: "auto", border: "5px solid black" }}>
-                            <h3>{element.user.username}</h3>
-                            <img id="imagebox" src={element.image} alt="" witdth="500" height="250"></img>
+                        <div id={`photofeedpics ${element.id}`} key={index} style={{ border: "5px solid black",}}>
+                           <div id="upperPortion">
+                            <div style={{display: "flex"}}>
+                            <img id="userImg" src={element.user.img} alt="" width="50" height="50" ></img>
+                            <h3 id="userName">{element.user.username}</h3>
+                            </div>
+                            <img id="imagebox" src={element.image} alt="" max-width="200%" height="auto"></img>
                             <h4>{element.title}</h4>
+                            </div>
                             <div className="likesDislikesComments">
                                 <img id="like" src="https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg" height="22px" width="22px" onClick={() => updateLikes(element)}></img>
-                                <h4 id={`likes_tag${index}`}>{element.likes}</h4>
+                                <h4 id={`likes_tag${element.id}`}>{element.likes}</h4>
                                 {(loggedInUser.id == element.user.id) ? 
-                                    <button id="deleteButton" onClick={() => deletePost(element)}>"[X]"</button> : ""
+                                    <img id="deleteButton" src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png" width="50" height="50" onClick={() => deletePost(element)}></img> : ""
                                 }
-
                             </div>
-                            <div id="comments-containers" style={{ overflow: "auto", border: "5px solid lightgrey" }}>
+                            <div id="comments-containers" style={{ overflow: "auto", border: "5px solid lightblue" }}>
                                 <Comments element={element} ind={index} loggedInUser={loggedInUser} />
                             </div>
                         </div>
