@@ -193,7 +193,7 @@
     -moz-perspective: 800;
     -webkit-perspective: 800;
     margin: 1em auto;
-    width: 80%;
+    width: 40%;
     border: solid 1em white;
     border-radius: 0.5em;
     font-family: Georgia;
@@ -220,6 +220,11 @@
     -moz-backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
 }
+.login-form button {
+  position: absolute;
+  bottom: 0%;
+  right: 0%;
+}
 
 .signup-form {
   background: #66eeff;
@@ -228,6 +233,13 @@
     -moz-transform: rotateY(180deg);
     -webkit-transform: rotateY(180deg);
     display:none;
+    text-align: center ;
+}
+
+.signup-form button {
+  position: absolute;
+  bottom: 0%;
+  right: 0%;
 }
 
 .LoginPage.flipped .signup-form{
@@ -254,8 +266,22 @@
 
 #directoryButtons {
   display: flex;
+  text-align: center;
 }
 
 #directoryButtons  h3 {
-  padding-left: 75px;
+  padding-left: 200px;
+}
+
+nav * {
+  padding-left: 50px;
+  padding-left: 50px;
+}
+
+.addHov:hover {
+  box-shadow: 0 0 1em black;
+}
+
+.alignDivs {
+  display: flex;
 }

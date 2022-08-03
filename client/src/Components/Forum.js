@@ -85,7 +85,7 @@ const Forum = ({ loggedInUser }) => {
                     return (
                         <div id={`forum-container${element.id}`} key={index} >
                             <div className="forumlinkbox" style={{ display: isVis ? "inherit" : "none" }}>
-                                <h1 onClick={() => { setIsVis(false); setSelectedForum(element) }} >{element.title}</h1>
+                                <h1 className="addHov" onClick={() => { setIsVis(false); setSelectedForum(element) }} >{element.title}</h1>
                                 <img src="{element.image}"></img>
                                 <img id="like" src="https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg" height="22px" width="22px" onClick={() => updateLikes(element)}></img>
                                 <h4 id={`likes_tag${index}`}>{element.likes}</h4>

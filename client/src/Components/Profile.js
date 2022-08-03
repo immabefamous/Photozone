@@ -1,6 +1,7 @@
 import React from "react";
 import "./Component.css";
 import {useState} from "react";
+import { Link } from "react-router-dom";
 
 function Profile ({loggedInUser}) {
     const [changed, setChanged] = useState(true)
@@ -36,6 +37,9 @@ function Profile ({loggedInUser}) {
 
     return (
         <div className ='app-container'>
+            <Link to="/">
+                <button className='back-btn'>Back to Home Page</button>
+            </Link>
             <div id="userInfo">
                 <h1>{loggedInUser.username}'s Profile</h1>
                 <img src={loggedInUser.image} alt="user picture"></img>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Home from "./Home";
 import "./Component.css";
 
@@ -12,8 +12,38 @@ function Login({ setLoggedInUser }) {
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
 
+    // slide show insertion
+    const [index, setIndex] = useState(0);
+    const delay = 2500;
+    const timeoutRef = useRef(null);
+    const [PicInfo, setPicInfo] = useState([])
+    function resetTimeout() {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+    }
+    const dummyArray = ["a", 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k']
+    async function slideShowPics() {
+        let req = await fetch('https://api.unsplash.com/photos/?client_id=3MyT9v7J2-oO2smMU-C0xhMV_E-Gc2SX_2CfHx64D0E')
+        let res = await req.json();
+        console.log(res)
+        setPicInfo(res)
+    }
 
+    useEffect(() => {
+        slideShowPics();
+    }, [])
 
+    useEffect(() => {
+        timeoutRef.current = setTimeout(
+            () =>
+                setIndex((prevIndex) =>
+                    prevIndex === PicInfo.length - 1 ? 0 : prevIndex + 1
+                ),
+            delay
+        );
+        return () => { resetTimeout(); };
+    }, [index]);
 
     const errors = {
         uname: "invalid username",
@@ -186,7 +216,7 @@ function Login({ setLoggedInUser }) {
         </div>
     );
 
-    function flipCard () {
+    function flipCard() {
         let front = document.getElementsByClassName("LoginPage")
         console.log(front)
         console.log(front[0].classList)
@@ -200,25 +230,67 @@ function Login({ setLoggedInUser }) {
 
     return (
         <div className="LoginWholePage">
-            <div>
+            <div style={{ textAlign: "center" }}>
                 <h1>PhotoZone!</h1>
                 <h6>all things photography</h6>
             </div>
+            <div className="alignDivs">
+            <div className="slideshow" >
+                <div className="slideshowSlider"
+                    style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}>
+
+                    {/*Loop through PicInfo to have the pictures for the slide show Full-width images with number and caption text*/}
+                    {PicInfo.map((element, index) => {
+                        return (
+                            <div className="slide" key={index} >
+                                <img src={element.urls.regular} alt="tester" witdth="7590" height="500"></img>
+                            </div>
+                        )
+                    })}
+                    {/* end of loop */}
+                </div>
+                <div className="slideshowDots">
+                    {PicInfo.map((_, idx) => (
+                        <div key={idx}
+                            className={`slideshowDot${index === idx ? "active" : ""}`}
+                            onClick={() => {
+                                setIndex(idx);
+                            }}
+                        ></div>
+                    ))}
+                </div>
+            </div>
+
+            <div className="3_image_box">
+
+            </div>
+            <div className="textbox_for_3_image_box">
+
+            </div>
+            <div className="imagebox">
+            </div>
+            <div className="text_for_imagebox">
+
+            </div>
+
+
+            
             <div className="LoginPage">
                 <div className="login-form">
                     <div className="title">Log In</div>
                     {/* exhange <div>User is successfully logged in</div> with Jerry's component */}
                     {isSubmitted ? <Home /> : renderForm}
                     <button onClick={() => flipCard()}>SIGN UP</button>
-                 </div>
+                </div>
                 <div className="signup-form">
                     <div className="title">Sign Up</div>
                     {renderForm2}
                     <button onClick={() => flipCard()}>BACK TO LOGIN</button>
                 </div>
             </div>
+            </div>
         </div>
-        
+
     )
 }
 

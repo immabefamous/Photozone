@@ -40,11 +40,11 @@
 
 nav {
   text-align: center;
-  
 }
 
-NavLink {
-    padding-right: 75px;
+.back-btn {
+  position: absolute;
+  right: 5%;
 }
 
 #logOut {
