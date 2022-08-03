@@ -175,6 +175,7 @@ function Login({ setLoggedInUser }) {
         )
         setIsSubmitted2(true)
         alert("you can now log in")
+        window.location.reload()
     }
 
     // JSX code for login form
