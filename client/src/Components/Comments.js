@@ -12,7 +12,7 @@ const Comments = ({ element, ind, loggedInUser }) => {
     }
 
     async function updateLikes(likesData, index) {
-        console.log(index)
+        
         let newLikes;
         setIsVisL(!isVisL)
         if (isVisL == true) {
@@ -20,7 +20,7 @@ const Comments = ({ element, ind, loggedInUser }) => {
         } else {
         newLikes = likesData.likes - 1
         }
-        let req = await fetch(`http://127.0.0.1:3000/comments/${likesData.id}`, {
+        let req = await fetch(`https://tranquil-plateau-22078.herokuapp.com/comments/${likesData.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -30,7 +30,7 @@ const Comments = ({ element, ind, loggedInUser }) => {
             }),
         })
         let res = await req.json()
-        console.log(element.comments, likesData)
+        
 
         element.comments[index].likes = newLikes
         document.getElementById(`likes_tag${((element.id * 100) + (index * 10))}`).innerText = element.comments[index].likes
@@ -41,7 +41,7 @@ const Comments = ({ element, ind, loggedInUser }) => {
         //Prevent page reload
         event.preventDefault();
         let { comment } = document.forms[(ind + 1)];
-        let req = await fetch('http://localhost:3000/comments', {
+        let req = await fetch('https://tranquil-plateau-22078.herokuapp.com/comments', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -64,7 +64,7 @@ const Comments = ({ element, ind, loggedInUser }) => {
                     {element.comments.map((ele, index, ) => {
                         return (
                             <div id="listOfComments" key={ele.id} style={{display: "flex"}}>
-                                {console.log(ele)}
+                                
                                 <img id="userImg" src={ele.user.img} alt="" width="50" height="50"></img>
                                 <h6> {ele.user.username}</h6>
                                 <h5> {ele.comment}</h5>

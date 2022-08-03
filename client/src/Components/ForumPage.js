@@ -3,15 +3,15 @@ import ForumPost from './ForumPost'
 import { Link } from 'react-router-dom'
 
 const ForumPage = ({loggedInUser, element, setIsVis, isVis}) => {
-    console.log(element, loggedInUser)
+    
     const [isVis2, setIsVis2] = useState(false)
     const handleSubmit = async (event) => {
         //Prevent page reload
         event.preventDefault();
 
         let { title, image } = document.forms[0];
-        console.log(title.value, image.value)
-        let req = await fetch('http://localhost:3000/forum_posts', {
+       
+        let req = await fetch('https://tranquil-plateau-22078.herokuapp.com/forum_posts', {
             method: 'POST', 
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
@@ -49,7 +49,7 @@ const ForumPage = ({loggedInUser, element, setIsVis, isVis}) => {
                     <h1>{element.title}</h1>
                 </div>
                 {element.forum_posts.map((element) => {
-                    console.log(element)
+                    
                     return (
                         <ForumPost element={element} loggedInUser={loggedInUser}/>
 

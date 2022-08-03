@@ -26,7 +26,7 @@ function Login({ setLoggedInUser }) {
     async function slideShowPics() {
         let req = await fetch('https://api.unsplash.com/photos/?client_id=3MyT9v7J2-oO2smMU-C0xhMV_E-Gc2SX_2CfHx64D0E')
         let res = await req.json();
-        console.log(res)
+        
         setPicInfo(res)
     }
 
@@ -51,7 +51,7 @@ function Login({ setLoggedInUser }) {
     };
 
     async function getUser() {
-        const req = await fetch(`http://localhost:3000/users`);
+        const req = await fetch(`https://tranquil-plateau-22078.herokuapp.com/users`);
         const res = await req.json();
         setCurrentUser(res);
     }
@@ -68,7 +68,7 @@ function Login({ setLoggedInUser }) {
 
         // Find user login info
         const userData = currentUser.find((user) => user.username === uname.value);
-        console.log(userData)
+       
         // Compare user info
         if (userData) {
             if (userData.password !== pass.value) {
@@ -76,17 +76,17 @@ function Login({ setLoggedInUser }) {
                 setErrorMessages({ name: "pass", message: errors.pass });
             } else {
                 setLoggedInUser(userData)
-                console.log(userData.subscription)
+                
                 setIsSubmitted(true);
             }
         } else {
             // Username not found
             setErrorMessages({ name: "uname", message: errors.uname });
         }
-        console.log(userData.username)
+        
         let username = userData.username
         let password = userData.password
-        fetch("http://localhost:3000/sessions", {
+        fetch("https://tranquil-plateau-22078.herokuapp.com/sessions", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -100,8 +100,8 @@ function Login({ setLoggedInUser }) {
                     r.json().then((err) => console.log(err))
                 }
             });
-        console.log(userData)
-        fetch(`http://localhost:3000/sessions/${userData.id}`, {
+        
+        fetch(`https://tranquil-plateau-22078.herokuapp.com/sessions/${userData.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -160,8 +160,8 @@ function Login({ setLoggedInUser }) {
 
         let { uname, pass, img, fname } = document.forms[1];
 
-        console.log(pass.value)
-        await fetch('http://localhost:3000/users', {
+        
+        await fetch('https://tranquil-plateau-22078.herokuapp.com/users', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -218,14 +218,13 @@ function Login({ setLoggedInUser }) {
 
     function flipCard() {
         let front = document.getElementsByClassName("LoginPage")
-        console.log(front)
-        console.log(front[0].classList)
+        
         if (front[0].classList[1] == 'flipped') {
             front[0].classList.remove('flipped')
         } else {
             front[0].classList.add('flipped')
         }
-        console.log(front[0].classList)
+        
     }
 
     return (

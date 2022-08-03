@@ -2,11 +2,11 @@ import React from 'react'
 import "./Component.css"
 
 const ForumPost = ({ loggedInUser, element }) => {
-    console.log(element)
+    
     async function deletePost (info) {
         const del = document.getElementById(`forum-post-box${info.id}`)
         del.remove()
-        let req = await fetch(`http://127.0.0.1:3000/forum_posts/${info.id}`, {
+        let req = await fetch(`https://tranquil-plateau-22078.herokuapp.com/${info.id}`, {
         method: "DELETE",
          })
     }

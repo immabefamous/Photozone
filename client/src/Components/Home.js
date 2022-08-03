@@ -16,7 +16,7 @@ function Home({loggedInUser}) {
   async function slideShowPics() {
      let  req = await fetch('https://api.unsplash.com/photos/?client_id=3MyT9v7J2-oO2smMU-C0xhMV_E-Gc2SX_2CfHx64D0E')
      let  res = await req.json();
-     console.log(res)
+     
       setPicInfo(res)
   }
 
@@ -26,7 +26,7 @@ function Home({loggedInUser}) {
 
   useEffect(() => {
     // auto-login
-    fetch(`http://127.0.0.1:3000/users/${loggedInUser.id}`).then((r) => {
+    fetch(`https://tranquil-plateau-22078.herokuapp.com/users/${loggedInUser.id}`).then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user));
         setIsSubmitted(true)
@@ -38,7 +38,7 @@ function Home({loggedInUser}) {
   const [user, setUser] = useState("user");
 
   async function Login(user) {
-    let req = await fetch(`http://127.0.0.1:3000/sessions/${user.id}`, {
+    let req = await fetch(`https://tranquil-plateau-22078.herokuapp.com/sessions/${user.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -75,7 +75,7 @@ function Home({loggedInUser}) {
   };
 
   async function getUser() {
-    const req = await fetch(`http://localhost:3000/users`);
+    const req = await fetch(`https://tranquil-plateau-22078.herokuapp.com/users`);
     const res = await req.json();
     setCurrentUser(res);
   }
@@ -92,7 +92,7 @@ function Home({loggedInUser}) {
 
     // Find user login info
     const userData = currentUser.find((user) => user.username === uname.value);
-    console.log(userData)
+    
     // Compare user info
     if (userData) {
       if (userData.password !== pass.value) {
@@ -106,10 +106,10 @@ function Home({loggedInUser}) {
       // Username not found
       setErrorMessages({ name: "uname", message: errors.uname });
     }
-    console.log(userData.username)
+    
     let username = userData.username
     let password = userData.password
-    fetch("http://localhost:3000/sessions", {
+    fetch("https://tranquil-plateau-22078.herokuapp.com/sessions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

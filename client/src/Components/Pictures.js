@@ -13,7 +13,7 @@ function Pictures({ loggedInUser }) {
     const [selectedComments, setSelectedComments] = useState({})
 
     async function getPhotos() {
-        let req = await fetch("http://127.0.0.1:3000/pic_posts")
+        let req = await fetch("https://tranquil-plateau-22078.herokuapp.com/pic_posts")
         let res = await req.json()
         getAllPhotos(res)
     }
@@ -31,7 +31,7 @@ function Pictures({ loggedInUser }) {
         newLikes = likesData.likes - 1 
         }
         
-        let req = await fetch(`http://127.0.0.1:3000/pic_posts/${likesData.id}`, {
+        let req = await fetch(`https://tranquil-plateau-22078.herokuapp.com/pic_posts/${likesData.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -49,7 +49,7 @@ function Pictures({ loggedInUser }) {
         async function deletePost (info) {
             const del = document.getElementById(`photofeedpics${info.id}`)
             del.remove()
-            let req = await fetch(`http://127.0.0.1:3000/pic_posts/${info.id}`, {
+            let req = await fetch(`https://tranquil-plateau-22078.herokuapp.com/pic_posts/${info.id}`, {
             method: "DELETE",
              })
         }
@@ -61,9 +61,8 @@ function Pictures({ loggedInUser }) {
         let { title, image } = document.forms[0];
         let grabbedTitle = title.value
         let grabbedImage = image.value
-        console.log(grabbedImage, grabbedTitle)
-        console.log(loggedInUser.loggedInUser)
-        fetch("http://localhost:3000/pic_posts", {
+        
+        fetch("hhttps://tranquil-plateau-22078.herokuapp.com/pic_posts", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
