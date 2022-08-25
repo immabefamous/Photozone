@@ -20,6 +20,7 @@ const Comments = ({ element, ind, loggedInUser }) => {
         } else {
         newLikes = likesData.likes - 1
         }
+        // let req = await fetch(`http://127.0.0.1:3000/comments/${likesData.id}`, {
         let req = await fetch(`https://tranquil-plateau-22078.herokuapp.com/comments/${likesData.id}`, {
             method: "PATCH",
             headers: {

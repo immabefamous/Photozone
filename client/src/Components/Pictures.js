@@ -14,6 +14,7 @@ function Pictures({ loggedInUser }) {
 
     async function getPhotos() {
         let req = await fetch("https://tranquil-plateau-22078.herokuapp.com/pic_posts")
+        // let req = await fetch("https://http://127.0.0.1:3000/pic_posts")
         let res = await req.json()
         getAllPhotos(res)
     }
@@ -32,6 +33,7 @@ function Pictures({ loggedInUser }) {
         }
         
         let req = await fetch(`https://tranquil-plateau-22078.herokuapp.com/pic_posts/${likesData.id}`, {
+        // let req = await fetch(`https://http://127.0.0.1:3000/pic_posts/${likesData.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -50,6 +52,7 @@ function Pictures({ loggedInUser }) {
             const del = document.getElementById(`photofeedpics${info.id}`)
             del.remove()
             let req = await fetch(`https://tranquil-plateau-22078.herokuapp.com/pic_posts/${info.id}`, {
+            // let req = await fetch(`https://http://127.0.0.1:3000/pic_posts/${info.id}`, {
             method: "DELETE",
              })
         }
@@ -62,7 +65,8 @@ function Pictures({ loggedInUser }) {
         let grabbedTitle = title.value
         let grabbedImage = image.value
         
-        fetch("hhttps://tranquil-plateau-22078.herokuapp.com/pic_posts", {
+        fetch("https://tranquil-plateau-22078.herokuapp.com/pic_posts", {
+        // fetch("https://http://127.0.0.1:3000/pic_posts", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

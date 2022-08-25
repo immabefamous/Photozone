@@ -7,6 +7,7 @@ const ForumPost = ({ loggedInUser, element }) => {
         const del = document.getElementById(`forum-post-box${info.id}`)
         del.remove()
         let req = await fetch(`https://tranquil-plateau-22078.herokuapp.com/${info.id}`, {
+        // let req = await fetch(`https://http://127.0.0.1:3000/${info.id}`, {
         method: "DELETE",
          })
     }

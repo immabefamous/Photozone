@@ -52,6 +52,7 @@ function Login({ setLoggedInUser }) {
 
     async function getUser() {
         const req = await fetch(`https://tranquil-plateau-22078.herokuapp.com/users`);
+        // const req = await fetch(`https://http://127.0.0.1:3000/users`);
         const res = await req.json();
         setCurrentUser(res);
     }
@@ -76,7 +77,6 @@ function Login({ setLoggedInUser }) {
                 setErrorMessages({ name: "pass", message: errors.pass });
             } else {
                 setLoggedInUser(userData)
-                
                 setIsSubmitted(true);
             }
         } else {
@@ -87,6 +87,7 @@ function Login({ setLoggedInUser }) {
         let username = userData.username
         let password = userData.password
         fetch("https://tranquil-plateau-22078.herokuapp.com/sessions", {
+        // fetch("https://http://127.0.0.1:3000/sessions", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -102,6 +103,7 @@ function Login({ setLoggedInUser }) {
             });
         
         fetch(`https://tranquil-plateau-22078.herokuapp.com/sessions/${userData.id}`, {
+        // fetch(`https://http://127.0.0.1:3000/sessions/${userData.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -162,6 +164,7 @@ function Login({ setLoggedInUser }) {
 
         
         await fetch('https://tranquil-plateau-22078.herokuapp.com/users', {
+        // await fetch('https://http://127.0.0.1:3000/users', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

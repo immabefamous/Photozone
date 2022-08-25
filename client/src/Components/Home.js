@@ -26,7 +26,8 @@ function Home({loggedInUser}) {
 
   useEffect(() => {
     // auto-login
-    fetch(`https://tranquil-plateau-22078.herokuapp.com/users/${loggedInUser.id}`).then((r) => {
+    // fetch(`https://tranquil-plateau-22078.herokuapp.com/users/${loggedInUser.id}`).then((r) => {
+    fetch(`https://http://127.0.0.1:3000/users/${loggedInUser.id}`).then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user));
         setIsSubmitted(true)
@@ -38,7 +39,8 @@ function Home({loggedInUser}) {
   const [user, setUser] = useState("user");
 
   async function Login(user) {
-    let req = await fetch(`https://tranquil-plateau-22078.herokuapp.com/sessions/${user.id}`, {
+    // let req = await fetch(`https://tranquil-plateau-22078.herokuapp.com/sessions/${user.id}`, {
+    let req = await fetch(`https://http://127.0.0.1:3000/sessions/${user.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -76,6 +78,7 @@ function Home({loggedInUser}) {
 
   async function getUser() {
     const req = await fetch(`https://tranquil-plateau-22078.herokuapp.com/users`);
+    // const req = await fetch(`https://http://127.0.0.1:3000/users`);
     const res = await req.json();
     setCurrentUser(res);
   }
@@ -110,6 +113,7 @@ function Home({loggedInUser}) {
     let username = userData.username
     let password = userData.password
     fetch("https://tranquil-plateau-22078.herokuapp.com/sessions", {
+    // fetch("https://http://127.0.0.1:3000/sessions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

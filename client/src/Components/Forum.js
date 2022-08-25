@@ -10,7 +10,8 @@ const Forum = ({ loggedInUser }) => {
     const [selectedForum, setSelectedForum] = useState([])
 
     const loadForums = async () => {
-        let req = await fetch("http://127.0.0.1:3000/forums")
+        // let req = await fetch("http://127.0.0.1:3000/forums")
+        let req = await fetch("https://tranquil-plateau-22078.herokuapp.com/forums")
         let res = await req.json()
         setAllForums(res)
     }
@@ -23,7 +24,8 @@ const Forum = ({ loggedInUser }) => {
         } else {
         newLikes = likesData.likes - 1
         }
-        let req = await fetch(`http://127.0.0.1:3000/forums/${likesData.id}`, {
+        // let req = await fetch(`http://127.0.0.1:3000/forums/${likesData.id}`, {
+        let req = await fetch(`https://tranquil-plateau-22078.herokuapp.com/${likesData.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -40,6 +42,7 @@ const Forum = ({ loggedInUser }) => {
     async function deletePost (info) {
         const del = document.getElementById(`forum-container${info.id}`)
         del.remove()
+        // let req = await fetch(`http://127.0.0.1:3000/forums/${info.id}`, {
         let req = await fetch(`https://tranquil-plateau-22078.herokuapp.com/forums/${info.id}`, {
         method: "DELETE",
          })
@@ -51,6 +54,7 @@ const Forum = ({ loggedInUser }) => {
 
         let { title, image } = document.forms[0];
         
+        // let req = await fetch('http://127.0.0.1:3000/forums', {
         let req = await fetch('https://tranquil-plateau-22078.herokuapp.com/forums', {
             method: 'POST',
             headers: { "Content-Type": "application/json" },

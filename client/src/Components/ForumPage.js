@@ -12,6 +12,7 @@ const ForumPage = ({loggedInUser, element, setIsVis, isVis}) => {
         let { title, image } = document.forms[0];
        
         let req = await fetch('https://tranquil-plateau-22078.herokuapp.com/forum_posts', {
+        // let req = await fetch('https://http://127.0.0.1:3000/forums/forum_posts', {
             method: 'POST', 
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
