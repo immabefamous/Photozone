@@ -285,3 +285,28 @@ nav * {
 .alignDivs {
   display: flex;
 }
+
+#picturesContent {
+  display: flex;
+  flex-direction: column;
+}
+
+#commentsContent {
+  display: flex;
+  flex-direction: column;
+}
+
+#forumContent {
+  display: flex;
+  flex-direction: column;
+}
+
+#ForumPostsContent {
+  display: flex;
+  flex-direction: column;
+}
+
+#smallHeart {
+  width: 100;
+  height: 100;
+}
