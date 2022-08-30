@@ -67,7 +67,7 @@ function Profile ({loggedInUser}) {
                 {loggedInUser.comments.map((element) => {
                         return (
                         <div>
-                        <h5>{element.comments}</h5>
+                        <h5>{element.comment}</h5>
                         {/* <img src={element.image}></img> */}
                         <img height="50" width="50" src="https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg"></img>
                         <h6>{element.likes}</h6>
