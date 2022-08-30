@@ -57,7 +57,7 @@ function Profile ({loggedInUser}) {
                         <div>
                         <h5>{element.title}</h5>
                         <img src={element.image}></img>
-                        <img id= "smallHeart" src="https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg"></img>
+                        <img height={50} style={50} src="https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg"></img>
                         <h6>{element.likes}</h6>
                         </div>
                         )
@@ -69,7 +69,7 @@ function Profile ({loggedInUser}) {
                         <div>
                         <h5>{element.comments}</h5>
                         {/* <img src={element.image}></img> */}
-                        <img id= "smallHeart" src="https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg"></img>
+                        <img height={50} style={50} src="https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg"></img>
                         <h6>{element.likes}</h6>
                         </div>
                         )
@@ -81,7 +81,7 @@ function Profile ({loggedInUser}) {
                         <div>
                         <h5>{element.title}</h5>
                         {/* <img src={element.image}></img> */}
-                        <img id= "smallHeart" src="https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg"></img>
+                        <img height={50} style={50}src="https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-red-heart-icon-isolated-png-image_1726594.jpg"></img>
                         <h6>{element.likes}</h6>
                         </div>
                         )
@@ -92,7 +92,7 @@ function Profile ({loggedInUser}) {
                         return (
                         <div>
                         {/* <img src={element.image}></img> */}
-                        <img id= "smallHeart" src={element.image}></img>
+                        <img height={50} style={50} src={element.image}></img>
                         <h5> {element.textarea}</h5>
                         <h6>{element.likes}</h6>
                         </div>

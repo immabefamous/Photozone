@@ -24,7 +24,7 @@ function Signup() {
     let { uname, pass, img, fname } = document.forms[1];
 
 
-   await fetch('http://localhost:3000/users', {
+   await fetch('https://tranquil-plateau-22078.herokuapp.com//users', {
             method: 'POST', 
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
